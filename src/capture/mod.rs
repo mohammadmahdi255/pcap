@@ -6,6 +6,7 @@ pub mod selectable;
 use std::{
     ffi::CString,
     marker::PhantomData,
+    mem,
     ptr::{self, NonNull},
 };
 
@@ -105,6 +106,12 @@ impl<T: State + ?Sized> From<NonNull<raw::pcap_t>> for Capture<T> {
             handle,
             _marker: PhantomData,
         }
+    }
+}
+
+impl<'a, T: State + 'a> From<Capture<T>> for Capture<dyn State + 'a> {
+    fn from(cap: Capture<T>) -> Capture<dyn State + 'a> {
+        unsafe { mem::transmute(cap) }
     }
 }
 
