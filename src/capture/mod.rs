@@ -4,6 +4,7 @@ pub mod inactive;
 pub mod selectable;
 
 use std::{
+    any::Any,
     ffi::CString,
     marker::PhantomData,
     mem,
@@ -46,7 +47,7 @@ impl Activated for Dead {}
 /// may or may not have particular capabilities. This trait is implemented by phantom
 /// types which allows us to punt these invariants to the type system to avoid runtime
 /// errors.
-pub trait State {}
+pub trait State: Any {}
 
 impl State for Inactive {}
 
