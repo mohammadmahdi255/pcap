@@ -47,7 +47,7 @@ impl Activated for Dead {}
 /// may or may not have particular capabilities. This trait is implemented by phantom
 /// types which allows us to punt these invariants to the type system to avoid runtime
 /// errors.
-pub trait State: Any {}
+pub trait State {}
 
 impl State for Inactive {}
 
@@ -143,6 +143,9 @@ impl<T: State + ?Sized> Capture<T> {
         self.handle.as_ptr()
     }
 
+    pub fn as_any(&'static self) -> &dyn Any {
+        self
+    }
     /// Set the minumum amount of data received by the kernel in a single call.
     ///
     /// Note that this value is set to 0 when the capture is set to immediate mode. You should not
