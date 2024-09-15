@@ -146,6 +146,10 @@ impl<T: State + ?Sized> Capture<T> {
     pub fn as_any(&'static self) -> &dyn Any {
         self
     }
+
+    pub fn as_mut_any(&'static mut self) -> &mut dyn Any {
+        self
+    }
     /// Set the minumum amount of data received by the kernel in a single call.
     ///
     /// Note that this value is set to 0 when the capture is set to immediate mode. You should not
