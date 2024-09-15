@@ -109,8 +109,8 @@ impl<T: State + ?Sized> From<NonNull<raw::pcap_t>> for Capture<T> {
     }
 }
 
-impl<'a, T: State + 'a> From<Capture<T>> for Capture<dyn State + 'a> {
-    fn from(cap: Capture<T>) -> Capture<dyn State + 'a> {
+impl<T: State + 'static> From<Capture<T>> for Capture<dyn State> {
+    fn from(cap: Capture<T>) -> Capture<dyn State> {
         unsafe { mem::transmute(cap) }
     }
 }
